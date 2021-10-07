@@ -1,0 +1,45 @@
+<div style="margin-left: 2%;" *ngIf="loading">Loading . . .</div>
+<div style="margin-left: 2%;" *ngIf="!loading">
+<h4>Login</h4>
+<br/>
+
+<form  (ngSubmit)="login()">
+<table>
+<tr>   
+    <td style="width: 26 px;">
+        <label>Username</label> 
+    </td>
+    <td style="width: 26 px;">
+        <label style="margin: 12px;"> : </label> 
+    </td>
+    <td style="width: 76px;">
+    <input pInputText type="text" name="uname" [(ngModel)]="uname"/>
+    </td>
+</tr>
+<tr>   
+    <td style="width: 26 px;">
+        <label>Password</label>
+    </td>
+    <td style="width: 26 px;">
+        <label style="margin: 12px;"> : </label> 
+    </td>
+    <td style="width: 76px;">
+        <input pInputText  type="password" name="pass" [(ngModel)]="pass"/>
+    </td>
+</tr>
+</table>
+<label *ngIf="lHidden">Username and Password required</label>
+<br/>
+
+<p name="isi" [(ngModel)]="isi">isinya isi = {{isi}}</p>
+<p>isi = : {{uname}} {{isi}}</p>
+<p>attr = {{attr}}</p>
+<p>Your IP Address : {{ipAddress}}</p>
+<p>By clicking login or logout you accept term of service for private data collection.</p>
+<br/>
+
+<input class="p-button" type="submit" value="Log In">
+</form>
+
+<br/>
+</div>

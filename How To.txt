@@ -1,0 +1,42 @@
+
+-untuk web storage
+npm install angular-web-storage
+
+-untuk primefaces
+npm install primeng --save
+npm install primeicons --save
+npm install @angular/cdk --save
+
+-setelah deploy generate sitemap di folder kosong dan di copas ke web deploy
+npx sitemap-generator-cli https://example.com
+
+-X untuk sitemap 
+npm install -S sitemap-generator
+
+-cpanel error pages
+copas isi dar error pages txt ke dalam cpanel error pages
+
+-angular routing cpanel
+copas .htaccess ke dalam folder deploy web angular
+copas folder WEB-INF ke dalam folder deploy web angular
+
+-xampp enable .htaccess
+Even though mod-rewrite is enabled, by default it is not enabled for .htaccess files.
+Hold Your Breath
+Open xampp control panel
+Stop Apache
+Click the Config button on the Apache row, and select httpd.conf
+In that file, search for something like xampp/htdocs">
+A bit lower, you may see a line like this: # AllowOverride All. Remove the #, which is a comment
+Alternately, search for AllowOverride All, make sure it is in the right section, and remove the comment #
+Save the file
+Restart Apache, say a prayer, cross your fingers and hold your breath
+
+-tambahkan asset ke src
+file angular.json
+"src/.htaccess",
+"src/sitemap.xml",
+"src/WEB-INF/web.xml"
+
+-page 404 di nginx site enable bagian server block di atas location / {
+error_page 404 =200  /index.html

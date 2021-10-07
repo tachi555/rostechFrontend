@@ -1,0 +1,85 @@
+<h4>Input Jenis Material</h4>
+<div style="margin-left: 2%;" *ngIf="loading">Loading . . .</div>
+<div style="margin-left: 2%; margin-right: 2%;" *ngIf="!loading">
+    <p-toast position="top-left" key="toast"></p-toast>
+    <tr style="width: 100%;" hidden="true">   
+        <td><label>Id</label></td>
+        <td><label style="margin: 12px;"> :</label></td>
+        <td>
+        <input pInputText type="text" [(ngModel)]="material.mid" style="width: 100%;"/>
+        </td>
+    </tr>
+    <tr>   
+        <td><label>Nama</label></td>
+        <td><label style="margin: 12px;"> :</label></td>
+        <td style="width: 100%;">
+        <input pInputText type="text" [(ngModel)]="material.nama" style="width: 100%;"/>
+        </td>
+    </tr>
+    <tr>   
+        <td><label>Type</label></td>
+        <td><label style="margin: 12px;"> : </label></td>
+        <td>
+        <input pInputText type="text" [(ngModel)]="material.type" style="width: 100%;"/>
+        </td>
+    </tr>
+    <tr>   
+        <td><label>Ukuran</label></td>
+        <td><label style="margin: 12px;"> : </label></td>
+        <td>
+        <input pInputText type="text" [(ngModel)]="material.ukuran" style="width: 100%;"/>
+        </td>
+    </tr>
+    <tr>   
+        <td style="vertical-align:top"><label>Keterangan</label></td>
+        <td style="vertical-align:top"><label style="margin: 12px;"> : </label></td>
+        <td>
+        <textarea pInputText [(ngModel)]="material.ket" style="width: 100%;" cols="40" rows="5"></textarea>
+        </td>
+    </tr>
+    <tr>   
+        <td style="width: 26 px; vertical-align:top"></td>
+        <td style="width: 26 px; vertical-align:top"></td>
+        <td style="width: 620px; ">
+        <label *ngIf="lHidden">Nama harus diisi</label>
+        <br/>
+        <label *ngIf="lDupe">Material telah ada</label>
+        <br/>
+        <p-button type="submit" (onClick)="insertMaterial()">Save Material</p-button>  <p>material id : {{material.mid}} data : {{material.nama}} {{material.type}} {{material.ukuran}} {{material.tanggal}} {{material.jumlah}} {{material.total}} {{material.ket}}</p>
+        </td>
+    </tr>
+</div>
+<br/>
+
+<div>
+    <div>
+        <div class="p-mb-3">
+            <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+        </div>
+        <p-table [value]="listHasil" [paginator]="true" [rows]="rows"  [rowsPerPageOptions]="[10,30,50]" 
+        [showCurrentPageReport]="true" [(first)]="first" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 4%;" pSortableColumn="mid">Id <p-sortIcon field="mid"></p-sortIcon></th>
+                    <th pSortableColumn="nama">Material <p-sortIcon field="nama"></p-sortIcon></th>
+                    <th pSortableColumn="tanggal">Tanggal <p-sortIcon field="tanggal"></p-sortIcon></th>
+                    <th>Keterangan</th>
+                    <th >Success</th>
+                    <th>Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-hasil >
+                <tr>
+                    <td>{{hasil.mid}}</td>
+                    <td>{{hasil.nama}} {{hasil.type}} {{hasil.ukuran}}</td>
+                    <td>{{hasil.tanggal| date: 'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{hasil.ket}}</td>
+                    <td>{{hasil.isSuccess}}</td>
+                    <td><p-button type="submit" (onClick)="editMaterial(hasil)">Edit</p-button></td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

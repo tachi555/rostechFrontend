@@ -1,0 +1,126 @@
+<h4>Input Pembelian Material</h4>
+<div style="margin-left: 2%;" *ngIf="loading">Loading . . .</div>
+<div style="margin-left: 2%; margin-right: 2%;" *ngIf="!loading">
+    <p-toast position="top-left" key="toast"></p-toast>
+    <table>
+        <tr style="width: 100%;">   
+            <td><label>Material</label></td>
+            <td><label style="margin: 12px;"> :</label></td>
+            <td>
+                <p-autoComplete [(ngModel)]="selectedAuto" [suggestions]="listAuto" (completeMethod)="search($event)" [dropdown]="true" (onSelect)="getMid()">
+                </p-autoComplete>
+            </td>
+        <tr>
+            <td><label>Last Price</label></td>
+            <td><label style="margin: 12px;"> :</label></td>
+            <td>
+                {{lastPrice | currency:'IDR'}} {{lastDate}}
+            </td>
+        </tr>
+        <tr hidden='true'>   
+            <td><label>Material</label></td>
+            <td><label style="margin: 12px;"> : </label></td>
+            <td>
+                <p-dropdown [options]="listMaterial" [(ngModel)]="pembelian.mid" optionLabel="nama" optionValue="mid" style="width: 100%; height: 100%;"></p-dropdown>
+            </td>
+        </tr>
+        <tr style="width: 100%;">   
+            <td><label>Toko</label></td>
+            <td><label style="margin: 12px;"> :</label></td>
+            <td>
+                <p-autoComplete [(ngModel)]="selectedAutoToko" [suggestions]="listAutoToko" (completeMethod)="searchToko($event)" [dropdown]="true" (onSelect)="getTid()">
+                </p-autoComplete>
+            </td>
+        </tr>
+        <tr hidden="true">   
+            <td><label>Toko</label></td>
+            <td><label style="margin: 12px;"> : </label></td>
+            <td style="width: 100%;">
+                <p-dropdown [options]="listToko" [(ngModel)]="pembelian.tid" optionLabel="nama" optionValue="id" style="width: 100%; height: 100%;"></p-dropdown>
+            </td>
+        </tr>
+        <tr>   
+            <td><label>Harga Satuan</label></td>
+            <td><label style="margin: 12px;"> : </label></td>
+            <td>
+            <input pInputText type="number" [(ngModel)]="pembelian.persatuan" style="width: 100%;" (ngModelChange)="hitungTotal()"/>
+            </td>
+        </tr>
+        <tr>   
+            <td><label>Jumlah</label></td>
+            <td><label style="margin: 12px;"> : </label></td>
+            <td>
+            <input pInputText type="number" [(ngModel)]="pembelian.jumlah" style="width: 100%;" (ngModelChange)="hitungTotal()"/>
+            </td>
+        </tr>
+        <tr>   
+            <td><label>Total</label></td>
+            <td><label style="margin: 12px;"> : </label></td>
+            <td>
+            <input pInputText type="number" [(ngModel)]="pembelian.total" style="width: 100%;" disabled = "true"/>
+            </td>
+        </tr>
+        <tr>   
+            <td><label>Tanggal Pembelian</label></td>
+            <td><label style="margin: 12px;"> : </label></td>
+            <td>
+            <input pInputText type="datetime-local" [(ngModel)]="pembelian.tanggal" style="width: 100%;"/>
+            </td>
+        </tr>
+        <tr>   
+            <td style="vertical-align:top"><label>Keterangan</label></td>
+            <td style="vertical-align:top"><label> : </label></td>
+            <td >
+            <textarea pInputText [(ngModel)]="pembelian.ket" style="width: 100%;" cols="40" rows="5"></textarea>
+            </td>
+        </tr>
+        <tr>   
+            <td style="width: 26 px; vertical-align:top"></td>
+            <td style="width: 26 px; vertical-align:top"></td>
+            <td style="width: 256px;">
+                <p-button (click)="insertPembelian()">Save Pembelian</p-button>
+            </td>
+        </tr>
+    </table>
+</div>
+<br/>
+<label *ngIf="lHidden">Material, Toko, Harga Satuan, Jumlah, Total and Tanggal required</label>
+<p>{{pembelian.id}} {{pembelian.mid}} {{pembelian.tid}} {{pembelian.persatuan}} {{pembelian.jumlah}} {{pembelian.total}} {{pembelian.tanggal}} {{pembelian.ket}}</p>
+<br/>
+
+<div>
+    <div class="p-mb-3">
+        <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+        <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+    </div>
+    <p-table [value]="listHasil" [paginator]="true" [rows]="rows"  [rowsPerPageOptions]="[10,30,50]" 
+        [showCurrentPageReport]="true" [(first)]="first" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4%;" pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="mnama">Nama Material <p-sortIcon field="mnama"></p-sortIcon></th>
+                <th pSortableColumn="tnama">Nama Toko <p-sortIcon field="tnama"></p-sortIcon></th>
+                <th pSortableColumn="persatuan">Harga Satuan <p-sortIcon field="persatuan"></p-sortIcon></th>
+                <th pSortableColumn="jumlah">Jumlah <p-sortIcon field="jumlah"></p-sortIcon></th>
+                <th pSortableColumn="total">Total <p-sortIcon field="total"></p-sortIcon></th>
+                <th pSortableColumn="tanggal">Tanggal <p-sortIcon field="tanggal"></p-sortIcon></th>
+                <th>Keterangan</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-hasil >
+            <tr>
+                <td>{{hasil.id}}</td>
+                <td>{{hasil.mnama}}</td>
+                <td>{{hasil.tnama}}</td>
+                <td>{{hasil.persatuan}}</td>
+                <td>{{hasil.jumlah}}</td>
+                <td>{{hasil.total}}</td>
+                <td>{{hasil.tanggal| date: 'dd/MM/yyyy HH:mm'}}</td>
+                <td>{{hasil.ket}}</td>
+                <td><p-button type="submit" (onClick)="editPembelian(hasil)">Edit</p-button></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+

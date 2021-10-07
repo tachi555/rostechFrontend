@@ -1,0 +1,45 @@
+<div style="background-image: url('assets/gambar/bg2.jpg'); background-repeat: repeat-y; background-size: 100%;">
+
+<div style="text-align: LEFT; vertical-align: middle; width: 76%; min-width: 400px; margin: auto;">
+
+  <div style="background-color: midnightblue; color: white; text-align: center;">
+    <br/>
+    <h3>
+      <button (click)="scroll(contact_us)" style="background-color: transparent; color: white; border: none;" ><b>ROSTECH</b></button>
+    </h3>
+    <br/>
+    
+    <h4>
+      <div style="display: flex; flex-wrap: wrap;">
+        <div style="width: 10%;"></div>
+        <div style="width: 20%;"><a routerLink="/mesin-umkm"><button style="background-color: midnightblue; border: none; color: white;">Mesin UMKM</button></a></div>
+        <div style="width: 20%;"><a routerLink="/plasma-cutting"><button style="background-color: midnightblue; border: none; color: white;" >Plasma Cutting</button></a></div>
+        <div style="width: 20%;"><a routerLink="/tekuk-plat"><button style="background-color: midnightblue; border: none; color: white;" >Tekuk Plat</button></a></div>
+        <div style="width: 20%;"><a routerLink="/potong-plat"><button style="background-color: midnightblue; border: none; color: white;" >Potong Plat</button></a></div>
+        <div style="width: 10%;"></div>
+      </div>
+    </h4>
+    <br/>
+  </div>
+
+<div style="background-color: white; text-align: LEFT; min-width: 400px; height: 100%; margin: auto;">
+  <router-outlet> </router-outlet>
+
+  <br>
+</div>
+
+<div #contact_us id="contact-us" style="background-color: midnightblue; color: white; text-align: center; min-width: 400px; height: 100%; margin: auto;">
+  <br>
+  <h4><b>Contact Us </b></h4>
+  <p><b>ROSTECH</b></p>
+  <p>MENERIMA JASA : PEMBUATAN MESIN UMKM – PEMOTONGAN ORNAMEN DAN MOTIF CNC PLASMA CUTTING - POTONG PLAT - TEKUK PLAT</p><p>Jl Sembilang No 47 Rumbai Pekanbaru </p>
+  <p>NO HP Dan WA NOPI : <a href="085278048388">085278048388</a> – DAYAT : <a href="082268919699">082268919699</a> – ROSTECH : <a href="08127560712">08127560712</a></p>
+  <p><button style="background-color: limegreen; border-radius: 25px; border: 1px solid black;">
+    <a href="https://api.whatsapp.com/send?phone=+6285278232885" style=" color: white"><b>WA ROSTECH</b> </a>
+  </button></p>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d352.6363534570783!2d101.44881271135684!3d0.5641617233273623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d5ad15db21d5eb%3A0x78f54a18747a296a!2sRostech!5e0!3m2!1sen!2ssg!4v1622189794531!5m2!1sen!2ssg" 
+    max-width="450" max-height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  <p>Copyright 2021 Powered by <b>ROSTECH</b></p>
+</div>
+
+</div>

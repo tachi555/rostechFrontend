@@ -1,0 +1,30 @@
+<div style="margin-left: 2%;" *ngIf="loading">Loading . . .</div>
+<div style="margin-right: 2%; margin-left: 2%;" *ngIf="!loading">
+<br/>
+<p-button (click)="logout()" style="margin-right: 10px;">Log Out</p-button>
+<p-button (click)="clearStorage()" style="margin-right: 10px;">Clear</p-button>
+<p-button (click)="info()" style="font-size: 4px; width: 100%; height: 100%; margin-right: 10px;">info</p-button>
+<div *ngIf="infoShow">
+    <p>form-mode works!</p>
+    <p>value = {{value}}</p>
+    <p>username = {{uname}}</p>
+    <p>ip = {{uip}}</p>
+    <p>isi = {{isi}}</p>
+    <p>token = {{token}}</p>
+    <p>role = {{role}}</p>
+    <p>from api = {{fromApi.token}}</p>
+</div>
+<br>
+<br>
+
+<a routerLink="form-material"><button style="background-color: white; border: none;" ><u>Input Jenis Material</u></button></a>
+<a routerLink="form-toko"><button style="background-color: white; border: none;" ><u>Input Daftar Toko</u></button></a>
+<a routerLink="form-pembelian"><button style="background-color: white; border: none;" ><u>Input Pembelian Material</u></button></a>
+<a routerLink="form-stock"><button style="background-color: white; border: none;" ><u>Input Stock Material</u></button></a>
+<a routerLink="form-history"><button style="background-color: white; border: none;" ><u>History Pembelian Material</u></button></a>
+<a routerLink="form-history-stock"><button style="background-color: white; border: none;" ><u>History Stock Material</u></button></a>
+
+<hr>
+
+<router-outlet></router-outlet>
+</div>

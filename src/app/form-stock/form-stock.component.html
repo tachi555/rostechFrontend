@@ -1,0 +1,131 @@
+<h4>Input Stock</h4>
+<div style="margin-left: 2%;" *ngIf="loading">Loading . . .</div>
+<div style="margin-left: 2%; margin-right: 2%;" *ngIf="!loading">
+    <p-toast position="top-left" key="toast"></p-toast>
+    <tr style="width: 100%;">   
+        <td><label>Material</label></td>
+        <td><label style="margin: 12px;"> :</label></td>
+        <td>
+            <p-autoComplete [(ngModel)]="selectedAuto" [suggestions]="listAuto" (completeMethod)="search($event)" [dropdown]="true" (onSelect)="getMid()">
+            </p-autoComplete>
+        </td>
+    </tr>
+    <tr hidden="true">   
+        <td><label>Material</label></td>
+        <td><label style="margin: 12px;"> :</label></td>
+        <td style="width: 100%;">
+            <p-dropdown [options]="listMaterial" formControlName="mid" [(ngModel)]="stock.mid" optionLabel="nama" optionValue="mid" style="width: 100%; height: 100%;" ></p-dropdown>
+        </td>
+    </tr>
+    <tr>   
+        <td><label>Tanggal</label></td>
+        <td><label style="margin: 12px;"> : </label></td>
+        <td>
+        <input pInputText type="datetime-local" formControlName="tanggal" [(ngModel)]="stock.tanggal" style="width: 100%;" />
+        </td>
+    </tr>
+    <tr>   
+        <td><label>Perubahan</label></td>
+        <td><label style="margin: 12px;"> : </label></td>
+        <td>
+        <input pInputText type="number" formControlName="perubahan" [(ngModel)]="stock.perubahan" style="width: 100%;" />
+        </td>
+    </tr>
+    <!--
+    <tr>   
+        <td><label>Total</label></td>
+        <td><label style="margin: 12px;"> : </label></td>
+        <td>
+        <input pInputText type="number" formControlName="total" [(ngModel)]="stock.total" style="width: 100%;" />
+        </td>
+    </tr>
+    -->
+    <tr>   
+        <td style="vertical-align:top"><label>Keterangan</label></td>
+        <td style="vertical-align:top"><label style="margin: 12px;"> : </label></td>
+        <td>
+        <textarea pInputText formControlName="ket" [(ngModel)]="stock.ket" style="width: 100%;" cols="40" rows="5"></textarea>
+        </td>
+    </tr>
+    <tr>   
+        <td style="width: 26 px; vertical-align:top"></td>
+        <td style="width: 26 px; vertical-align:top"></td>
+        <td style="width: 256px;">
+        <p-button type="submit" (onClick)="insertStock()">Insert Material</p-button>
+        </td>
+    </tr>
+</div>
+<br/>
+<label *ngIf="lHidden">Nama required</label>
+<p>{{stock.id}} {{stock.mid}} {{stock.perubahan}} {{stock.tanggal}} {{stock.total}} {{stock.ket}}</p>
+<br/>
+
+<div>
+    <h4>Stock Terakhir Material</h4>
+    <div>
+        <div class="p-mb-3">
+            <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+        </div>
+        <p-table [value]="listHasil" [paginator]="true" [rows]="rows"  [rowsPerPageOptions]="[10,30,50]" 
+            [showCurrentPageReport]="true" [(first)]="first" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 4%;" pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+                    <th pSortableColumn="mnama">Material <p-sortIcon field="mnama"></p-sortIcon></th>
+                    <th pSortableColumn="perubahan">Perubahan <p-sortIcon field="perubahan"></p-sortIcon></th>
+                    <th pSortableColumn="tanggal">Tanggal <p-sortIcon field="tanggal"></p-sortIcon></th>
+                    <th pSortableColumn="total">Total <p-sortIcon field="total"></p-sortIcon></th>
+                    <th>Keterangan</th>
+                    <th>Id Pembelian</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-hasil >
+                <tr>
+                    <td>{{hasil.id}}</td>
+                    <td>{{hasil.mnama}}</td>
+                    <td>{{hasil.perubahan}}</td>
+                    <td>{{hasil.tanggal| date: 'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{hasil.total}}</td>
+                    <td>{{hasil.ket}}</td>
+                    <td>{{hasil.pembelianId}}</td>
+            </tr>
+        </ng-template>
+        </p-table>
+    </div>
+
+    <h4>Input Terakhir Material</h4>
+    <div>
+        <div class="p-mb-3">
+            <p-button type="button" icon="pi pi-chevron-left" (click)="prev2()" [disabled]="isFirstPage2()" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-refresh" (click)="reset2()" styleClass="p-button-text"></p-button>
+            <p-button type="button" icon="pi pi-chevron-right" (click)="next2()" [disabled]="isLastPage2()" styleClass="p-button-text"></p-button>
+        </div>
+        <p-table [value]="listHasil2" [paginator]="true" [rows]="rows2"  [rowsPerPageOptions]="[10,30,50]" 
+            [showCurrentPageReport]="true" [(first)]="first2" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 4%;" pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+                    <th pSortableColumn="mnama">Material <p-sortIcon field="mnama"></p-sortIcon></th>
+                    <th pSortableColumn="perubahan">Perubahan <p-sortIcon field="perubahan"></p-sortIcon></th>
+                    <th pSortableColumn="tanggal">Tanggal <p-sortIcon field="tanggal"></p-sortIcon></th>
+                    <th pSortableColumn="total">Total <p-sortIcon field="total"></p-sortIcon></th>
+                    <th>Keterangan</th>
+                    <th>Id Pembelian</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-hasil >
+                <tr>
+                    <td>{{hasil.id}}</td>
+                    <td>{{hasil.mnama}}</td>
+                    <td>{{hasil.perubahan}}</td>
+                    <td>{{hasil.tanggal| date: 'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{hasil.total}}</td>
+                    <td>{{hasil.ket}}</td>
+                    <td>{{hasil.pembelianId}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

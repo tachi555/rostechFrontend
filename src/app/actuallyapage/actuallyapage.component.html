@@ -1,0 +1,12 @@
+<div style="margin-right: 2%; margin-left: 2%;">
+    <br>
+    <label style="margin-left: 10px; margin-right: 10px;">Height <input pInputText type="text" name="height" [(ngModel)]="height"/> </label>
+    <label style="margin-left: 10px; margin-right: 10px;">Width <input pInputText type="text" name="width" [(ngModel)]="width"/> </label>
+    <input class="p-button" type="submit" value="Generate" ((onClick))="generate()" style="margin-left: 10px; margin-right: 10px; margin-bottom: 8px;">
+
+    <br>
+    <br>
+    <div id='board' name='board' #board style="width: 640px; height: 640px; border: 2px solid; border-color: gold;">
+
+    </div>
+</div>
